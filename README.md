@@ -1,5 +1,5 @@
 # projekt_cpp
-## Platforma szkoleniowa dla szkół
+## Edziennik
 
 ## Harmonogram
 - 23.10.2023	- odświeżanie podstaw, filmiki o programowaniu obiektowym etc.
