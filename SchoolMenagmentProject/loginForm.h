@@ -44,6 +44,8 @@ namespace SchoolMenagmentProject {
 	private: System::Windows::Forms::TextBox^ tbPswd;
 	private: System::Windows::Forms::Button^ btOk;
 	private: System::Windows::Forms::Button^ btCancel;
+	private: System::Windows::Forms::LinkLabel^ llRegister;
+	private: System::Windows::Forms::Label^ label4;
 
 
 
@@ -70,6 +72,8 @@ namespace SchoolMenagmentProject {
 			this->tbPswd = (gcnew System::Windows::Forms::TextBox());
 			this->btOk = (gcnew System::Windows::Forms::Button());
 			this->btCancel = (gcnew System::Windows::Forms::Button());
+			this->llRegister = (gcnew System::Windows::Forms::LinkLabel());
+			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// label1
@@ -144,11 +148,33 @@ namespace SchoolMenagmentProject {
 			this->btCancel->UseVisualStyleBackColor = true;
 			this->btCancel->Click += gcnew System::EventHandler(this, &loginForm::btCancel_Click);
 			// 
+			// llRegister
+			// 
+			this->llRegister->AutoSize = true;
+			this->llRegister->Location = System::Drawing::Point(392, 219);
+			this->llRegister->Name = L"llRegister";
+			this->llRegister->Size = System::Drawing::Size(49, 13);
+			this->llRegister->TabIndex = 7;
+			this->llRegister->TabStop = true;
+			this->llRegister->Text = L"Register!";
+			this->llRegister->LinkClicked += gcnew System::Windows::Forms::LinkLabelLinkClickedEventHandler(this, &loginForm::llRegister_LinkClicked);
+			// 
+			// label4
+			// 
+			this->label4->AutoSize = true;
+			this->label4->Location = System::Drawing::Point(263, 219);
+			this->label4->Name = L"label4";
+			this->label4->Size = System::Drawing::Size(122, 13);
+			this->label4->TabIndex = 8;
+			this->label4->Text = L"Don\'t have an account\?";
+			// 
 			// loginForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(478, 316);
+			this->Controls->Add(this->label4);
+			this->Controls->Add(this->llRegister);
 			this->Controls->Add(this->btCancel);
 			this->Controls->Add(this->btOk);
 			this->Controls->Add(this->tbPswd);
@@ -163,10 +189,12 @@ namespace SchoolMenagmentProject {
 
 		}
 #pragma endregion
+
+	//quit from program
 	private: System::Void btCancel_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->Close();
 	}
-
+	//login
 	public: User^ user = nullptr;
 	private: System::Void btOk_Click(System::Object^ sender, System::EventArgs^ e) {
 		String^ username = this->tbUsername->Text;
@@ -203,6 +231,11 @@ namespace SchoolMenagmentProject {
 		catch (Exception^ e) {
 			throw(e);
 		}
+	}
+	public: bool switchToRegister = false;
+	private: System::Void llRegister_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e) {
+		this->switchToRegister = true;
+		this->Close();
 	}
 };
 }

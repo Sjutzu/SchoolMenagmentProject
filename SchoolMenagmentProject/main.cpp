@@ -1,5 +1,6 @@
 #include "loginForm.h"
-
+#include "MainForm.h"
+#include "RegisterForm.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -9,14 +10,32 @@ using namespace System::Windows::Forms;
 void main(array<String^>^ args) {
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
-	SchoolMenagmentProject::loginForm logForm;
-	logForm.ShowDialog();
+	
+	User^ user = nullptr;
+	while (true) {
+		SchoolMenagmentProject::loginForm loginForm;
+		loginForm.ShowDialog();
+		if (loginForm.switchToRegister) {
+			SchoolMenagmentProject::RegisterForm registerForm;
+			registerForm.ShowDialog();
 
-	User^ user = logForm.user;
-
+			if (registerForm.switchToLogin) {
+				continue;
+			}
+			else {
+				loginForm.ShowDialog();
+				break;
+			}
+		}
+		else {
+			user = loginForm.user;
+			break;
+		}
+	}
 
 	if (user != nullptr) {
-		MessageBox::Show("succes, Welcome " + user->username, "lol", MessageBoxButtons::OK);
+		SchoolMenagmentProject::MainForm mainForm(user);
+		Application::Run(% mainForm);
 	}
 	else {
 		MessageBox::Show("something went wrong", "lol", MessageBoxButtons::OK);
